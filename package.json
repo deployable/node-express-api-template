@@ -4,7 +4,7 @@
   "description": "Express API Template",
   "main": "appjs.js",
   "scripts": {
-    "test": "npm test-base",
+    "test": "npm run test-base",
     "test-base": "npm run build && mocha test/base_spec.coffee",
     "build": "coffee --compile --map --output appjs app && coffee --compile --map --output libjs lib",
     "build-watch-app": "coffee --compile --watch --map --output appjs app",
