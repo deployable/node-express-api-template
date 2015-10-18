@@ -33,3 +33,7 @@ This needs to be copied to `app/config.json` as your local running config. Your 
     $ vi app/config.json
 
 
+## Test
+
+`mocha` and `superagent` are used to test the api. 
+Tests are written in coffeescript.
