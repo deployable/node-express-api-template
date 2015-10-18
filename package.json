@@ -9,7 +9,8 @@
     "build": "coffee --compile --map --output appjs app && coffee --compile --map --output libjs lib",
     "build-watch-app": "coffee --compile --watch --map --output appjs app",
     "build-watch-lib": "coffee --compile --watch --map --output libjs lib",
-    "docco": "groc --glob '**/*' --except 'appjs/**/*' --except app.js --except appcoffee.js --except 'doc/**/*' --except 'libjs/**/*' --except 'node_modules/**/*'"
+    "docco": "groc --glob '**/*' --except 'appjs/**/*' --except app.js --except appcoffee.js --except 'doc/**/*' --except 'libjs/**/*' --except 'node_modules/**/*'",
+    "sync-current": "git checkout current && git merge master && git push && git checkout master"
   },
   "repository": {
     "type": "git",
