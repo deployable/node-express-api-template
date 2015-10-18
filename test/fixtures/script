@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+# Run a mock script 
+
+set -ue
+rundir=${0%/*}
+[ ! -d "$rundir" ] && rundir=$(which "$0") && rundir=${rundir%/*}
+source "$rundir/test_common.sh"
+
+
+# Output variables
+
+output_start="This is a mock script"
+
+# Emulate  our mock script
+
+echo "$output_start"
+exit $mock_rc

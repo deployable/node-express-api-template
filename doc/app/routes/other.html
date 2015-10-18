@@ -1,0 +1,38 @@
+<!DOCTYPE html><html lang="en"><head><title>app/routes/other</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="app/routes/other"><meta name="groc-project-path" content="app/routes/other.coffee"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">app/routes/other.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h2 id="routes-other-">Routes <code>/other</code></h2></div></div><div class="code"><div class="wrapper">debug         = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'express-api:app:routes:other'</span>)
+router        = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>).Router()
+pkg           = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../../package.json'</span>)
+body_parser   = <span class="hljs-built_in">require</span>(<span class="hljs-string">'body-parser'</span>).json
+<span class="hljs-function">
+
+<span class="hljs-title">dummy</span> = <span class="hljs-params">( req, res )</span>-&gt;</span>
+  res.json <span class="hljs-attribute">message</span>: req.baseUrl
+<span class="hljs-function">
+<span class="hljs-title">secure</span> = <span class="hljs-params">( req, res, next )</span>-&gt;</span>
+  <span class="hljs-keyword">if</span> req.header[<span class="hljs-string">'x-api-token'</span>] <span class="hljs-keyword">is</span> <span class="hljs-string">'me'</span>
+    next()
+  <span class="hljs-keyword">else</span>
+    next(<span class="hljs-string">'nope'</span>)
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OtherRequest</span></span>
+
+  <span class="hljs-property">@run</span>: <span class="hljs-function"><span class="hljs-params">( req, res, next )</span>-&gt;</span>
+    
+    param = req.body.param
+
+    <span class="hljs-keyword">unless</span> param
+      <span class="hljs-keyword">return</span> next(<span class="hljs-string">"missing param"</span>)
+
+    res.json 
+      <span class="hljs-attribute">message</span>: <span class="hljs-string">'done'</span>
+      <span class="hljs-attribute">result</span>: param</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="requests">Requests</h3></div></div></div><div class="segment"><div class="code"><div class="wrapper">router.use body_parser()
+
+<span class="hljs-comment">#router.use secure</span>
+
+router.get  <span class="hljs-string">'/'</span>, dummy
+
+router.get  <span class="hljs-string">'/request'</span>, dummy
+router.post <span class="hljs-string">'/request/run'</span>, OtherRequest.run
+router.get  <span class="hljs-string">'/request/list'</span>, dummy
+
+<span class="hljs-built_in">module</span>.exports = router</div></div></div></div></body></html>

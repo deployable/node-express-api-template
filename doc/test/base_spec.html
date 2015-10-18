@@ -1,0 +1,49 @@
+<!DOCTYPE html><html lang="en"><head><title>test/base_spec</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="test/base_spec"><meta name="groc-project-path" content="test/base_spec.coffee"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">test/base_spec.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper">request = <span class="hljs-built_in">require</span>(<span class="hljs-string">'supertest'</span>)
+mocha   = <span class="hljs-built_in">require</span> <span class="hljs-string">'mocha'</span>
+expect  = <span class="hljs-built_in">require</span>(<span class="hljs-string">'chai'</span>).expect
+debug   = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'express-api:test:base'</span>)
+path    = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Include the App</p></div></div><div class="code"><div class="wrapper">app = <span class="hljs-built_in">require</span>(<span class="hljs-string">"../appjs/index"</span>).app
+
+
+describe <span class="hljs-string">'express rest api server'</span>, <span class="hljs-function">-&gt;</span>
+  
+  id = <span class="hljs-literal">null</span>
+
+  it <span class="hljs-string">'get / info'</span>, <span class="hljs-function"><span class="hljs-params">( done )</span>-&gt;</span>
+    request(app).get(<span class="hljs-string">'/'</span>).end ( err, res )-&gt;
+      expect( res.statusCode ).to.eql <span class="hljs-number">200</span>
+      expect( res.type ).to.eql <span class="hljs-string">'application/json'</span>
+      expect( res.charset ).to.eql <span class="hljs-string">'utf-8'</span>
+      expect( res.header.etag ).to.exist
+      expect( res.header.date ).to.exist
+      expect( res.header[<span class="hljs-string">'x-powered-by'</span>] ).to.eql <span class="hljs-string">'Express'</span>
+      expect( res.body.message ).to.match <span class="hljs-regexp">/^Welcome to express-api-template \d+\.\d+\.\d+/</span>
+      done()
+
+
+describe <span class="hljs-string">'other'</span>, <span class="hljs-function">-&gt;</span>
+  
+  id = <span class="hljs-literal">null</span>
+
+  it <span class="hljs-string">'get /other info'</span>, <span class="hljs-function"><span class="hljs-params">( done )</span>-&gt;</span>
+    request(app).get(<span class="hljs-string">'/other'</span>).end ( err, res )-&gt;
+      <span class="hljs-keyword">if</span> err <span class="hljs-keyword">then</span> <span class="hljs-built_in">console</span>.log <span class="hljs-string">"error"</span>,err
+      expect( res.statusCode ).to.eql <span class="hljs-number">200</span>
+      expect( res.type ).to.eql <span class="hljs-string">'application/json'</span>
+      expect( res.charset ).to.eql <span class="hljs-string">'utf-8'</span>
+      expect( res.header.etag ).to.exist
+      expect( res.header.date ).to.exist
+      expect( res.header[<span class="hljs-string">'x-powered-by'</span>] ).to.eql <span class="hljs-string">'Express'</span>
+      expect( res.body.message ).to.eql <span class="hljs-string">'/other'</span>
+      done()
+
+
+  it <span class="hljs-string">'runs the mock script'</span>, <span class="hljs-function"><span class="hljs-params">( done )</span>-&gt;</span>
+    process.env.PATH = path.join(__dirname, <span class="hljs-string">'fixtures'</span>) + <span class="hljs-string">':'</span> + process.env.PATH
+    request(app)
+    .post <span class="hljs-string">'/other/request/run'</span>
+    .send({ <span class="hljs-attribute">param</span>: <span class="hljs-string">'a param'</span> })
+    .end ( err, res )-&gt;
+      expect( res.body ).to.eql <span class="hljs-attribute">message</span>: <span class="hljs-string">'done'</span>, <span class="hljs-attribute">result</span>: <span class="hljs-string">'a param'</span>
+      expect( res.statusCode ).to.eql <span class="hljs-number">200</span>
+      done()</div></div></div></div></body></html>
